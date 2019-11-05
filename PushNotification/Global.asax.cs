@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +17,9 @@ namespace PushNotification
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Start sql dependency to track db changes 
+            SqlDependency.Start(ConnectionString.GetConnectionString()); //connection string contain private data so ignore it
         }
     }
 }

@@ -5,6 +5,8 @@
 *.jpg
 *.png
 
+ConnectionString.cs
+
 # User-specific files
 *.suo
 *.user
