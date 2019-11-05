@@ -1,0 +1,31 @@
+
+                  Setup Flow 
+
+- Setup Database
+
+- Install SignalR package 
+
+- In Startup class map signalr
+
+- In Global.asax Register SqlDependency 
+
+- Enable service broker in db 
+ * Alter Database db_name set enable_broker with rollback immediate;
+
+- Check service broker 
+ * Select is_broker_enabled, * from sys.databases;
+
+- Create custom hub 
+
+-Create notification services class 
+
+	Workflow 
+
+1- Start connection at client-side 
+
+2- When we made any changes in db sql dependency calls change event in notification services class
+
+3- In change event we call our custom hub method (send) which directly calls client-side javascript function 
+
+4- Which (JS method) basically calls get notification method in server-side  
+
