@@ -25,7 +25,7 @@ namespace PushNotification.Models
                 {
                     connection.Open();
 
-                    using (command = new SqlCommand(@"SELECT [Id],[Status],[Message],[ExtraColumn] FROM [dbo].[Notifications]",connection))
+                    using (command = new SqlCommand(@"SELECT [Id],[Status],[Message] FROM [dbo].[Notifications]",connection))
                     {
                         command.Notification = null;
 
@@ -44,10 +44,9 @@ namespace PushNotification.Models
                         {
                             messages.Add(item: new Notification
                             {
-                                Id = (Int16)reader["Id"],
+                                Id = (int)reader["Id"],
                                 Status = reader["Status"] != DBNull.Value ? (string)reader["Status"] : string.Empty,
                                 Message = reader["Message"] != DBNull.Value ? (string)reader["Message"] : string.Empty,
-                                ExtraColumn = reader["ExtraColumn"] != DBNull.Value ? (string)reader["ExtraColumn"] : string.Empty
                             });
                         }
 

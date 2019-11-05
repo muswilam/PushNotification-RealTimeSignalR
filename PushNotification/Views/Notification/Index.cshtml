@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Messages";
+}
+
+<h2>Messages</h2>
+
+<div class="notification-icon" style="margin-top:10px">
+    <span class="glyphicon glyphicon-envelope " style="font-size:25px"></span>
+    <span class="badge" id="notifiCount"></span>
+</div>
+
+<div id="divNotification">
+
+</div>
+
+<script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+<script src="~/signalr/Hubs"></script>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var hub = $.connection.notificationHub;
+
+        //declare a function on the hub , so the server can invoke it
+        hub.client.displayStatus = function () {
+            debugger;
+            getData();
+        };
+
+        //start the connection
+        $.connection.hub.start();
+        getData();
+
+        function getData() {
+            var divNotification = $("#divNotification");
+
+            $.ajax({
+                url: "/Notification/GetNotification",
+                type: 'Get',
+                dataType: 'json',
+                success: function (data) {
+                    data = $.parseJSON(data);
+                    if (data.length > 0) {
+                        divNotification.empty();
+                        
+                        //set count
+                        $("#notifiCount").text(data.length);
+
+                        //make notification html
+                        for (var i = 0; i < data.length; i++) {
+                            var notification = '<div class="alert alert-danger alert-dismissable">' + 
+                                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                                data[i].Message + 
+                                '</div>'
+                  
+                            divNotification.append(notification);
+                        }
+                    }
+                }
+            })
+        };
+    });
+</script>
