@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="Models\NotificationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\NotificationsServiceDb.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +231,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Notification\Create.cshtml" />
+    <Content Include="Views\Notification\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

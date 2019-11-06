@@ -5,12 +5,19 @@
 
 <h2>Messages</h2>
 
+
+<button id="createMessage">New Message</button>
 <div class="notification-icon" style="margin-top:10px">
     <span class="glyphicon glyphicon-envelope " style="font-size:25px"></span>
     <span class="badge" id="notifiCount"></span>
 </div>
 
 <div id="divNotification">
+
+</div>
+
+
+<div id="actionContainer">
 
 </div>
 
@@ -49,8 +56,9 @@
 
                         //make notification html
                         for (var i = 0; i < data.length; i++) {
-                            var notification = '<div class="alert alert-danger alert-dismissable">' + 
-                                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                            var notification = '<div class="alert alert-danger alert-dismissable">' +
+                                '<button data-id=' + data[i].Id + ' class="editBtn btn btn-info pull-right">Edit</button>' +
+                                '<button data-id=' + data[i].Id + ' class="deleteBtn btn btn-danger pull-right">Delete</button>' +
                                 data[i].Message + 
                                 '</div>'
                   
@@ -60,5 +68,51 @@
                 }
             })
         };
+      
     });
+
+    $("#createMessage").click(function () {
+        $.ajax({
+            url: '/Notification/Create',
+            type: 'Get'
+        })
+        .done(function (response) {
+            $("#actionContainer").html(response);
+        })
+    })
+
+    //usiing on important becuz this button will created in future.
+    $("#divNotification").on('click', '.editBtn', function () {
+        debugger;
+        var id = $(this).attr("data-id");
+        $.ajax({
+            url: '/Notification/Edit',
+            type: 'Get',
+            data: {
+                id: id,
+            }
+        })
+        .done(function (response) {
+            $("#actionContainer").html(response);
+        })
+    })
+
+    $("#divNotification").on('click', '.deleteBtn', function () {
+        debugger;
+        var confirmation = confirm("Are you sure?");
+
+        if (confirmation) {
+            var id = $(this).attr("data-id");
+            $.ajax({
+                url: '/Notification/Delete',
+                type: 'Post',
+                data: {
+                    id: id,
+                }
+            })
+            .done(function (response) {
+                $("#divNotification").html(response);
+            })
+        }
+    })
 </script>

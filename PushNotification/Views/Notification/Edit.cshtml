@@ -1,0 +1,38 @@
+﻿@model PushNotification.Models.Notification
+
+<h2>Edit Message</h2>
+
+<div>
+    <form id="editForm">
+        <input type="hidden" name="Id" value="@Model.Id" />
+
+        <label>Status</label>
+        <input type="text" name="Status" class="form-control" value="@Model.Status" />
+        <br />
+
+        <label>Message</label>
+        <input type="text" name="Message" class="form-control" value="@Model.Message"/>
+        <br />
+
+        <label>Extra Column</label>
+        <input type="text" name="ExtraColumn" class="form-control" value="@Model.ExtraColumn">
+        <br />
+
+        <div class="form-group">
+            <button id="updateBtn" class="btn btn-success">Update</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $("#updateBtn").click(function () {
+        $.ajax({
+            url: '/Notification/Edit',
+            type: 'Post',
+            data: $("#editForm").serialize()
+        })
+    .done(function (response) {
+        $("#divNotification").html(response);
+    })
+    });
+</script>
